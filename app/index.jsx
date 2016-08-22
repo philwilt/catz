@@ -1,59 +1,171 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import {connect, Provider} from 'react-redux'
 import {createStore} from 'redux'
+import {combineReducers} from 'redux'
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-const amountTypes = { SAW_CATS: 'SAW_CATS' }
-
-function amountReducer(state = { amount: 0 }, action) {
+const todo = (state, action) => {
   switch(action.type) {
-    case amountTypes.SAW_CATS:
+    case 'ADD_TODO':
       return {
-        amount: state.amount + 1
+        id: action.id,
+        text: action.text,
+        completed: false
       }
-
+    case 'TOGGLE_TODO':
+       if(state.id !== action.id) {
+         return state
+       }
+       return {
+         ...state,
+         completed: !state.completed
+       }
     default:
       return state
   }
 }
 
-function sawCats(amount) {
-  return {
-    type:   amountTypes.SAW_CATS,
-    amount: amount
+const todos = (state = [], action) => {
+  switch(action.type) {
+    case 'ADD_TODO':
+    return [
+      todo(undefined, action),
+      ...state
+    ]
+    case 'TOGGLE_TODO':
+      return state.map(t =>
+        todo(t, action)
+      )
+    default:
+      return state
   }
 }
 
-const connectAmountToSawCats = connect(({amount}) => ({amount}), {sawCats})
+const visibilityFilter = (
+  state = 'SHOW_ALL',
+  action
+  ) => {
+  switch(action.type) {
+    case 'SET_VISIBILITY_FILTER':
+      return action.filter
+    default:
+      return state
+  }
+}
 
-const counterComponent = ({amount, sawCats, ...props}) => {
+const getVisibleTodos = (todos, filter) => {
+  switch(filter) {
+    case 'SHOW_ALL':
+      return todos
+    case 'SHOW_COMPLETED':
+      return todos.filter(t => t.completed)
+    case 'SHOW_ACTIVE':
+      return todos.filter(t => !t.completed)
+  }
+}
+
+const FilterLink = ({
+  filter,
+  currentFilter,
+  children
+}) => {
+  if(filter === currentFilter) {
+    return <span>{children}</span>
+  }
   return (
-    <div>
-      <CatsSeen amount={amount} />
-      <button className="cat-button" onClick={() => sawCats(1)}>Saw a cat</button>
-    </div>
+    <a href="#"
+      onClick={e => {
+        e.preventDefault()
+        store.dispatch({
+          type: 'SET_VISIBILITY_FILTER',
+          filter
+        })
+      }}
+    >
+      {children}
+    </a>
   )
 }
 
-const CatCounter = connectAmountToSawCats(counterComponent)
+const todoApp = combineReducers({
+  todos,
+  visibilityFilter
+})
 
-const CatsSeen = ({amount}) => {
-  return (
-    <h2>
-      Ive seen {amount} cats
-    </h2>
+const store = createStore(todoApp)
+
+let nextTodoId = 0
+
+class TodoApp extends React.Component {
+  render() {
+    const {
+      todos, visibilityFilter
+    } = this.props
+
+    const visibleTodos = getVisibleTodos(
+      todos,
+      visibilityFilter
+    )
+    return (
+      <div>
+      <input type="text" ref={node => {
+        this.input = node
+      }} />
+        <button onClick={() => {
+          store.dispatch({
+            type: 'ADD_TODO',
+            text: this.input.value,
+            id: nextTodoId++
+          })
+          this.input.value = ''
+        }}>
+          Add Todo
+        </button>
+        <ul>
+          {visibleTodos.map(todo =>
+            <li key={todo.id}
+              onClick={() => {
+                store.dispatch({
+                  type: 'TOGGLE_TODO',
+                  id: todo.id
+                })
+              }}
+              style={{
+                textDecoration:
+                  todo.completed ?
+                    'line-through':
+                    'none'
+              }}
+              >
+              {todo.text}
+            </li>
+          )}
+        </ul>
+        <p>
+          Show:
+          {' '}
+          <FilterLink filter='SHOW_ALL' currentFilter={visibilityFilter}>
+            All
+          </FilterLink>
+          {' '}
+          <FilterLink filter='SHOW_ACTIVE' currentFilter={visibilityFilter}>
+            Active
+          </FilterLink>
+          {' '}
+          <FilterLink filter='SHOW_COMPLETED' currentFilter={visibilityFilter}>
+            Completed
+          </FilterLink>
+        </p>
+      </div>
+    )
+  }
+}
+
+const render = () => {
+  ReactDOM.render(
+    <TodoApp {...store.getState()} />,
+    document.getElementById('app')
   )
 }
 
-CatsSeen.propTypes = {
-  amount: React.PropTypes.number
-}
-
-const store = createStore(amountReducer)
-
-ReactDOM.render(
-  <Provider store={store}>
-    <CatCounter />
-  </Provider>,
-  document.getElementById('app')
-);
+store.subscribe(render)
+render()

@@ -3,9 +3,7 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
-var Dashboard = require('webpack-dashboard');
-var DashboardPlugin = require('webpack-dashboard/plugin');
-var dashboard = new Dashboard();
+const DashboardPlugin = require('webpack-dashboard/plugin');
 
 exports.indexTemplate = function(options) {
   return {
@@ -109,7 +107,7 @@ exports.devServer = function(options) {
       new webpack.HotModuleReplacementPlugin({
         multiStep: true
       }),
-      new DashboardPlugin(dashboard.setData)
+      new DashboardPlugin()
     ]
   };
 

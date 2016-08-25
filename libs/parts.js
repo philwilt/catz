@@ -3,7 +3,6 @@ const CleanWebpackPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const NpmInstallPlugin = require('npm-install-webpack-plugin');
-const DashboardPlugin = require('webpack-dashboard/plugin');
 
 exports.indexTemplate = function(options) {
   return {
@@ -23,9 +22,9 @@ exports.loadJSX = function(include) {
     module: {
       loaders: [
         {
-          test: /\.(js|jsx)$/,
+          test: /\.(jsx|js)$/,
           // Enable caching for extra performance
-          loaders: ['babel?cacheDirectory'],
+          loader: 'babel',
           include: include
         }
       ]
@@ -106,8 +105,7 @@ exports.devServer = function(options) {
       // in larger projects. Good default.
       new webpack.HotModuleReplacementPlugin({
         multiStep: true
-      }),
-      new DashboardPlugin()
+      })
     ]
   };
 

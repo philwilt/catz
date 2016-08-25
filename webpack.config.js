@@ -7,9 +7,9 @@ const parts = require('./libs/parts');
 const TARGET = process.env.npm_lifecycle_event;
 const ENABLE_POLLING = process.env.ENABLE_POLLING;
 const PATHS = {
-  app: path.join(__dirname, 'app', 'index.jsx'),
+  app: path.join(__dirname, 'app'),
   style: [
-    path.join(__dirname, 'app', 'main.css')
+    path.join(__dirname, 'app', 'styles', 'main.css')
   ],
   build: path.join(__dirname, 'build'),
   test: path.join(__dirname, 'tests')
@@ -42,8 +42,8 @@ const common = merge(
     title: 'Saw Catz',
     appMountId: 'app'
   }),
-  parts.loadJSX(PATHS.app),
-  parts.lintJSX(PATHS.app)
+  parts.loadJSX(PATHS.app)
+ // parts.lintJSX(PATHS.app)
 );
 
 var config;
@@ -110,6 +110,4 @@ switch(TARGET) {
     );
 }
 
-module.exports = validate(config, {
-  quiet: true
-});
+module.exports = validate(config);

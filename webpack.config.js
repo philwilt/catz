@@ -1,7 +1,7 @@
 const path = require('path');
 const merge = require('webpack-merge');
 const validate = require('webpack-validator');
-
+const sass = require('node-sass');
 const parts = require('./libs/parts');
 
 const TARGET = process.env.npm_lifecycle_event;
@@ -9,7 +9,7 @@ const ENABLE_POLLING = process.env.ENABLE_POLLING;
 const PATHS = {
   app: path.join(__dirname, 'app'),
   style: [
-    path.join(__dirname, 'app', 'styles', 'main.scss')
+    path.join(__dirname, 'app', 'styles', 'main.scss'),
   ],
   build: path.join(__dirname, 'build'),
   test: path.join(__dirname, 'tests')
@@ -36,14 +36,14 @@ const common = merge(
     },
     resolve: {
       extensions: ['', '.js', '.jsx']
-    }
+    },
   },
   parts.indexTemplate({
-    title: 'Saw Catz',
+    title: 'Redux Todo',
     appMountId: 'app'
   }),
   parts.loadJSX(PATHS.app)
- // parts.lintJSX(PATHS.app)
+  // parts.lintJSX(PATHS.app)
 );
 
 var config;

@@ -1,0 +1,17 @@
+$button-color: #3FC1C9;
+$button-text-color: white;
+
+.button {
+  background-color: $button-color;
+  padding: 0.5em 1em;
+  margin-left: 2em;
+  color: $button-text-color;
+  border: 0;
+  border-radius: 3px;
+  box-shadow: 0 1px 1px rgba(0,0,0, 0.2);
+
+  &:hover {
+    background-color: darken($button-color, 10%);
+    cursor: pointer;
+  }
+}

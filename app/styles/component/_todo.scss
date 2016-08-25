@@ -1,0 +1,14 @@
+.todo {
+  &:hover {
+    cursor: pointer;
+    text-decoration: underline;
+  }
+
+  &.complete-false {
+
+  }
+
+  &.complete-true {
+    color: #999;
+  }
+}

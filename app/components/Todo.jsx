@@ -17,8 +17,8 @@ class Todo extends PureComponent {
 
     return (
       <li
+        className={`todo complete-${completed}`}
         onClick={onClick}
-        style={{ textDecoration: completed ? 'line-through' : 'none' }}
       >
         {text}
       </li>

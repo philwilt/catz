@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { addTodo } from '../actions/todos';
+import { addTodo } from '../actions/todo';
 
 let nextTodoId = 0;
 

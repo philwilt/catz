@@ -1,6 +1,6 @@
 import TodoList from '../components/TodoList';
 import { connect } from 'react-redux';
-import { toggleTodo } from '../actions/todos';
+import { toggleTodo } from '../actions/todo';
 
 const getVisibleTodos = (todos, filter) => {
   switch (filter) {

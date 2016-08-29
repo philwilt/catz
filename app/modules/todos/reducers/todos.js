@@ -1,14 +1,15 @@
 import { combineReducers } from 'redux'
+import * as todoTypes from '../constants'
 
 const todo = (state = {}, action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case todoTypes.ADD_TODO:
       return {
         id: action.id,
         text: action.text,
         completed: false,
       };
-    case 'TOGGLE_TODO':
+    case todoTypes.TOGGLE_TODO:
       if (state.id !== action.id) {
         return state;
       }
@@ -23,12 +24,12 @@ const todo = (state = {}, action) => {
 
 const todos = (state = [], action) => {
   switch (action.type) {
-    case 'ADD_TODO':
+    case todoTypes.ADD_TODO:
       return [
         todo(undefined, action),
         ...state,
       ];
-    case 'TOGGLE_TODO':
+    case todoTypes.TOGGLE_TODO:
       return state.map(t =>
         todo(t, action)
       );

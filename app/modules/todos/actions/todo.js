@@ -1,7 +1,9 @@
+import * as todoTypes from '../constants'
+
 let nextTodoId = 0;
 export const addTodo = (text) => (
   {
-    type: 'ADD_TODO',
+    type: todoTypes.ADD_TODO,
     id: nextTodoId++,
     text
   }
@@ -9,7 +11,7 @@ export const addTodo = (text) => (
 
 export const toggleTodo = (id) => (
   {
-    type: 'TOGGLE_TODO',
+    type: todoTypes.TOGGLE_TODO,
     id,
   }
 )

@@ -1,6 +1,8 @@
+import * as visibilityTypes from '../constants'
+
 export const setVisibilityFilter = (filter) => (
   {
-    type: 'SET_VISIBILITY_FILTER',
+    type: visibilityTypes.SET_FILTER,
     filter,
   }
 )

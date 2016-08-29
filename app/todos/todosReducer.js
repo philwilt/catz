@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux'
-import * as todoTypes from '../constants'
+import * as todoTypes from './constants'
 
 const todo = (state = {}, action) => {
   switch (action.type) {

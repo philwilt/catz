@@ -1,4 +1,4 @@
-import * as todoTypes from '../constants'
+import * as todoTypes from './constants'
 
 let nextTodoId = 0;
 export const addTodo = (text) => (

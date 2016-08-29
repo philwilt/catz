@@ -2,10 +2,10 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { createStore } from 'redux'
-import todoApp from './reducers/index'
-import Footer from './components/Footer'
-import AddTodo from './containers/AddTodo'
-import VisibleTodoList from './containers/VisibleTodoList'
+import todoApp from './modules/'
+import Footer from './modules/visibilityFilter/components/Footer'
+import AddTodo from './modules/todos/containers/AddTodo'
+import VisibleTodoList from './modules/visibilityFilter/containers/VisibleTodoList'
 
 let store = createStore(todoApp, window.devToolsExtension && window.devToolsExtension())
 

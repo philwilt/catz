@@ -1,5 +1,5 @@
 import { PropTypes } from 'react'
-import PureComponent from './PureComponent'
+import PureComponent from '../../../components/PureComponent'
 import Todo from './Todo'
 
 class TodoList extends PureComponent {

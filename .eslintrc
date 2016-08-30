@@ -3,6 +3,13 @@
     "airbnb"
   ],
   "parser": "babel-eslint",
+  "settings": {
+    "import/resolver": {
+      "babel-module": {
+        "extensions": [".js", ".jsx"]
+      }
+    }
+  },
   "env": {
     "browser": true,
     "node": true,
@@ -10,5 +17,8 @@
   },
   "plugins": [
     "react",
-  ]
+  ],
+  "rules": {
+    "react/prefer-stateless-function": [1, { "ignorePureComponents": true }]
+  }
 }

@@ -1,25 +1,32 @@
+import React from 'react';
 import { connect } from 'react-redux';
-import { addTodo } from 'components/todos/todoActions';
-
-let nextTodoId = 0;
+import { addTodo } from '~/components/todos/todoActions';
 
 let AddTodo = ({ dispatch }) => {
   let input;
   return (
     <div>
-      <input type="text" ref={node => {
-        input = node;
-      }} />
+      <input
+        type="text"
+        ref={node => {
+          input = node;
+        }}
+      />
       <button
         className="button"
         onClick={() => {
           dispatch(addTodo(input.value));
           input.value = '';
         }}
-        >
+      >
         Add Todo
       </button>
     </div>
   );
 };
+
+AddTodo.propTypes = {
+  dispatch: React.PropTypes.func.isRequired,
+};
+
 export default AddTodo = connect()(AddTodo);

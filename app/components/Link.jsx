@@ -1,17 +1,26 @@
-const Link = ({active, children, onClick}) => {
+import React from 'react';
+
+const Link = ({ active, children, onClick }) => {
   if (active) {
-    return <span>{children}</span>;
+    return <button className="button" disabled>{children}</button>;
   }
   return (
-    <a href="#"
+    <button
+      className="button"
       onClick={e => {
         e.preventDefault();
         onClick();
       }}
     >
       {children}
-    </a>
+    </button>
   );
 };
 
-export default Link
+Link.propTypes = {
+  active: React.PropTypes.bool.isRequired,
+  children: React.PropTypes.string.isRequired,
+  onClick: React.PropTypes.func.isRequired,
+};
+
+export default Link;

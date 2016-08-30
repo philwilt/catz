@@ -14,4 +14,8 @@ $button-text-color: white;
     background-color: darken($button-color, 10%);
     cursor: pointer;
   }
+
+  &:disabled {
+    background-color: darken($button-color, 30%);
+  }
 }

@@ -1,15 +1,11 @@
-import { PropTypes } from 'react'
-import PureComponent from 'components/PureComponent'
+import React, { PropTypes } from 'react';
+import PureComponent from '~/components/PureComponent';
 
 class Todo extends PureComponent {
-  constructor(props) {
-    super(props)
-  }
-
   static propTypes = {
     text: PropTypes.string.isRequired,
     completed: React.PropTypes.bool,
-    onClick: React.PropTypes.func
+    onClick: React.PropTypes.func,
   }
 
   render() {
@@ -26,4 +22,4 @@ class Todo extends PureComponent {
   }
 }
 
-export default Todo
+export default Todo;

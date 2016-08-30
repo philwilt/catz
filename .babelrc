@@ -4,6 +4,14 @@
     "react",
     "stage-2"
   ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./"],
+      "alias": {
+        "~": "./app"
+      }
+    }]
+  ],
   "env": {
     "start": {
       "presets": [

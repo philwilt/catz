@@ -9,7 +9,7 @@ const ENABLE_POLLING = process.env.ENABLE_POLLING;
 const PATHS = {
   app: path.join(__dirname, 'app'),
   style: [
-    path.join(__dirname, 'app', 'styles', 'main.scss'),
+    path.join(__dirname, 'app', 'styles', 'main'),
   ],
   build: path.join(__dirname, 'build'),
   test: path.join(__dirname, 'tests')
@@ -19,23 +19,16 @@ process.env.BABEL_ENV = TARGET;
 
 const common = merge(
   {
-    // Entry accepts a path or an object of entries.
-    // We'll be using the latter form given it's
-    // convenient with more complex configurations.
     entry: {
-      app: PATHS.app
+      app: path.join(PATHS.app, 'views', 'index')
     },
     output: {
       path: PATHS.build,
       filename: '[name].js'
-      // TODO: Set publicPath to match your GitHub project name
-      // E.g., '/kanban-demo/'. Webpack will alter asset paths
-      // based on this. You can even use an absolute path here
-      // or even point to a CDN.
-      //publicPath: ''
     },
     resolve: {
-      extensions: ['', '.js', '.jsx']
+      root: path.resolve('./app'),
+      extensions: ['', '.js', '.jsx', '.scss']
     },
   },
   parts.indexTemplate({

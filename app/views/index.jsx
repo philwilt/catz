@@ -8,7 +8,6 @@ import AddTodo from '~/containers/AddTodoContainer';
 import VisibleTodoList from '~/containers/VisibleTodoListContainer';
 
 const store = createStore(todoApp, window.devToolsExtension && window.devToolsExtension());
-
 render(
   <Provider store={store}>
     <div>

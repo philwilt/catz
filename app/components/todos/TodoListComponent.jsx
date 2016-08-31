@@ -1,10 +1,10 @@
-import React, { PropTypes } from 'react';
-import PureComponent from '~/components/PureComponent';
+import React, { PropTypes, PureComponent } from 'react';
+import { List } from 'immutable';
 import Todo from './TodoComponent';
 
 class TodoList extends PureComponent {
   static propTypes = {
-    todos: PropTypes.array.isRequired,
+    todos: React.PropTypes.instanceOf(List).isRequired,
     onTodoClick: PropTypes.func.isRequired,
   }
 
@@ -15,9 +15,9 @@ class TodoList extends PureComponent {
       <ul>
         { todos.map(todo => (
           <Todo
-            key={todo.id}
-            {...todo}
-            onClick={() => onTodoClick(todo.id)}
+            key={todo.get('id')}
+            text={todo.get('text')}
+            onClick={() => onTodoClick(todo.get('id'))}
           />
         ))}
       </ul>

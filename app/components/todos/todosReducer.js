@@ -1,13 +1,14 @@
 import * as todoTypes from './constants';
+import { List, Map } from 'immutable'
 
-const todo = (state = {}, action) => {
+const todo = (state = Map(), action) => {
   switch (action.type) {
     case todoTypes.ADD_TODO:
-      return {
+      return Map({
         id: action.id,
         text: action.text,
         completed: false,
-      };
+      });
     case todoTypes.TOGGLE_TODO:
       if (state.id !== action.id) {
         return state;
@@ -21,13 +22,10 @@ const todo = (state = {}, action) => {
   }
 };
 
-const todos = (state = [], action) => {
+const todos = (state = List(), action) => {
   switch (action.type) {
     case todoTypes.ADD_TODO:
-      return [
-        todo(undefined, action),
-        ...state,
-      ];
+      return state.unshift(todo(undefined, action))
     case todoTypes.TOGGLE_TODO:
       return state.map(t =>
         todo(t, action)

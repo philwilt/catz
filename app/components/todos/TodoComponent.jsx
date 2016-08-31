@@ -1,5 +1,4 @@
-import React, { PropTypes } from 'react';
-import PureComponent from '~/components/PureComponent';
+import React, { PropTypes, PureComponent } from 'react';
 
 class Todo extends PureComponent {
   static propTypes = {

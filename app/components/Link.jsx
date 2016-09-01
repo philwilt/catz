@@ -1,20 +1,28 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 
-const Link = ({ active, children, onClick }) => {
-  if (active) {
-    return <button className="button" disabled>{children}</button>;
+class Link extends PureComponent {
+  static propTypes = {
+    active: React.PropTypes.bool.isRequired,
+    children: React.PropTypes.string.isRequired,
+    onClick: React.PropTypes.func.isRequired,
   }
-  return (
-    <button
-      className="button"
-      onClick={e => {
-        e.preventDefault();
-        onClick();
-      }}
-    >
-      {children}
-    </button>
-  );
+
+  render () {
+    const { active, children, onClick } = this.props;
+
+    return (
+      <button
+        className="button"
+        onClick={e => {
+          e.preventDefault();
+          onClick();
+        }}
+        disabled={active}
+      >
+        {children}
+      </button>
+    );
+  };
 };
 
 Link.propTypes = {

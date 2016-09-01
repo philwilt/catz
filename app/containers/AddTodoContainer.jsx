@@ -1,28 +1,34 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux';
 import { addTodo } from '~/components/todos/todoActions';
 
-let AddTodo = ({ dispatch }) => {
-  let input;
-  return (
-    <div>
-      <input
-        type="text"
-        ref={node => {
-          input = node;
-        }}
-      />
-      <button
-        className="button"
-        onClick={() => {
-          dispatch(addTodo(input.value));
-          input.value = '';
-        }}
-      >
-        Add Todo
-      </button>
-    </div>
-  );
+class AddTodo extends PureComponent {
+  render () {
+    const { dispatch } = this.props;
+
+    let input;
+
+    return (
+      <div>
+        <input
+          type="text"
+          ref={node => {
+            input = node;
+          }}
+        />
+        <button
+          className="button"
+          onClick={() => {
+            dispatch(addTodo(input.value));
+            input.value = '';
+          }}
+        >
+          Add Todo
+        </button>
+      </div>
+    );
+  }
+
 };
 
 AddTodo.propTypes = {
